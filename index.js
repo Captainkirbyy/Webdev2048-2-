@@ -368,73 +368,104 @@ function closePopup2() {
     return true;
 }
 function keys() {
-    let isMoving = false;
-  
-    document.addEventListener("keyup", (e) => {
-      if (isMoving) {
-        return;
-      }
-  
-      const previousBoardState = JSON.parse(JSON.stringify(board));
-  
-      // Check if there are valid moves before allowing the player to move
-      if (!validMovesExist()) {
-        document.getElementById('overlay3').style.display = 'block';
-        document.getElementById('popup3').style.display = 'block';
-        var sound2 = document.getElementById('sound2');
-        sound2.volume = 0.5;
-        sound2.play();
-        var audio = document.getElementById('music');
-        audio.pause();
-        isMoving = true; // Set the flag to true during movement
-        setTimeout(() => {
-          isMoving = false; // Reset the flag after a short delay
-        }, 500); // Adjust the delay as needed
-        return;
-      }
-  
-      if (e.code == "ArrowLeft") {
-        slideLeft();
-      } else if (e.code == "ArrowRight") {
-        slideRight();
-      } else if (e.code == "ArrowUp") {
-        slideUp();
-      } else if (e.code == "ArrowDown") {
-        slideDown();
-      }
-  
-      if (!arraysEqual(previousBoardState, board)) {
-        setTwo();
-      }
-  
-      document.getElementById("score").innerText = score;
-    });
-  }
-    function validMovesExist() {
-      // Check if there are empty cells or if there are adjacent cells with the same value
-      for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
-          if (board[i][j] === 0) {
-            return true; // Valid move, as there is an empty cell
-          }
-          if (
-            j < board[i].length - 1 &&
-            board[i][j] === board[i][j + 1]
-          ) {
-            return true; // Valid move, as there are adjacent cells with the same value
-          }
-          if (
-            i < board.length - 1 &&
-            board[i][j] === board[i + 1][j]
-          ) {
-            return true; // Valid move, as there are adjacent cells with the same value
-          }
+  let isMoving = false;
+  function validMovesExist() {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (board[i][j] === 0) {
+          return true; // Valid move, as there is an empty cell
+        }
+        if (j < board[i].length - 1 && board[i][j] === board[i][j + 1]) {
+          return true; // Valid move, as there are adjacent cells with the same value
+        }
+        if (i < board.length - 1 && board[i][j] === board[i + 1][j]) {
+          return true; // Valid move, as there are adjacent cells with the same value
         }
       }
-      return false; // No valid moves
+    }
+    return false; // No valid moves
+  }
+  document.addEventListener("keyup", (e) => {
+    if (isMoving) {
+      return;
     }
 
-  function closePopup3() {
-    document.getElementById('overlay3').style.display = 'none';
-    document.getElementById('popup3').style.display = 'none';
+    const previousBoardState = JSON.parse(JSON.stringify(board));
+
+    // Check if there are valid moves before allowing the player to move
+    if (!validMovesExist()) {
+      document.getElementById('overlay3').style.display = 'block';
+      document.getElementById('popup3').style.display = 'block';
+      var sound2 = document.getElementById('sound2');
+      sound2.volume = 0.5;
+      sound2.play();
+      var audio = document.getElementById('music');
+      audio.pause();
+      isMoving = true;
+
+      // Reset isMoving after a short delay
+      setTimeout(() => {
+        isMoving = false;
+      }, 500); // Adjust the delay as needed
+
+      return;
+    }
+
+    if (e.code == "ArrowLeft") {
+      slideLeft();
+    } else if (e.code == "ArrowRight") {
+      slideRight();
+    } else if (e.code == "ArrowUp") {
+      slideUp();
+    } else if (e.code == "ArrowDown") {
+      slideDown();
+    }
+
+    if (!validMovesExist()) {
+      // If no valid moves after the player's move, display the Game Over popup
+      document.getElementById('overlay3').style.display = 'block';
+      document.getElementById('popup3').style.display = 'block';
+      var sound2 = document.getElementById('sound2');
+      sound2.volume = 0.5;
+      sound2.play();
+      var audio = document.getElementById('music');
+      audio.pause();
+
+      // Reset isMoving after a short delay
+      setTimeout(() => {
+        isMoving = false;
+      }, 500); // Adjust the delay as needed
+
+      return;
+    }
+
+    if (!arraysEqual(previousBoardState, board)) {
+      setTwo();
+    }
+
+    document.getElementById("score").innerText = score;
+  });
+}
+function closePopup3() {
+  document.getElementById('overlay3').style.display = 'none';
+  document.getElementById('popup3').style.display = 'none';
+}
+function instructions() {
+  document.getElementById('overlay4').style.display = 'block';
+  document.getElementById('popup4').style.display = 'block';
+
+  var audio3 = document.getElementById('InfoSound');
+
+  // Reset audio to the beginning before playing
+  audio3.currentTime = 0;
+
+  // Set the volume before playing
+  audio3.volume = 0.1;
+
+  // Play the audio
+  audio3.play();
+}
+  function closePopup4() {
+    document.getElementById('overlay4').style.display = 'none';
+    document.getElementById('popup4').style.display = 'none';
   }
