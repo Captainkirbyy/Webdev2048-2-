@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>2048</title>
+        <script src="index.js"></script>
+    </head>
+    <body>
+        <button id="toggleButton">
+            <img id="icon1" src="images/heart.png" alt="Toggle Music">
+            <img id="icon2" src="images/black dot.jpg" alt="Toggle Music">
+        </button>
+        
+        
+        <h1>2048</h1>
+        <h2>SCORE:  <span id="score">0</span></h2>
+        <h3>HIGH SCORE: <span id="high">0</span></h3>
+        
+        <div id="board"></div>
+
+        <div id="button-container">
+            <!--Start-->
+            <button id="start" class="info play" onclick='start()'>Start</button>
+            <audio id="sound" autoplay>
+                <source src="audio/Press.mp3">
+            </audio>
+            <audio id="start2">
+                <source src="audio/start2.mp3">
+            </audio>
+            <!--Reset-->
+            <button id="reset" class="info repeat" onclick='reset()'>Reset</button>
+            <div class="overlay2" id="overlay2" onclick="closePopup2()"></div>
+            <div class="popup2" id="popup2">
+                <p class="inn">I dont think there are numbers inside the board</p>
+                <img class="imge" id="gifImage" src="images/none.gif">
+            </div>
+            <div id="info-container">
+                <!--Info-->
+                <button id="info" class="info repeat" onclick="info()">Info</button>
+                <div class="overlay" id="overlay" onclick="closePopup()"></div>
+                <div class="popup" id="popup">
+                    <p>--Info--</p>
+                    <p class="In">Instructions: to move just use these arrow keys ↑ ↓ → ← </p>
+                    <p class="dis">Discord: https://discord.gg/2WERaJqaQ8</p>
+                    <p class="in">Facebook: TOTING</p>
+                    <p class="src">Created by: Jonaee.e Group</p>
+                    <p class="src2">Members:</p>
+                    <p class="nm1">Kirby Jusay (Frontend)</p>
+                    <p class="nm2">Aristeo Naingue (Backend)</p>
+                </div>
+                <audio id= "music" autoplay loop>
+                    <source src="audio/OST.mp3">
+                </audio>
+                <div class="overlay3" id="overlay3" onclick="closePopup3()"></div>
+                <div class="popup3" id="popup3">
+                    <!-- Add content for the Game Over Popup here -->
+                    <p class="lose">GameOver!</p>
+                    <p><img class="broke" src="images/over.gif">
+                </div>
+                <audio id="sound2" autoplay>
+                    <source src="audio/gameover.mp3">
+                </audio>
+                <audio id="InfoSound">
+                    <source src="audio/info.mp3">
+                </audio>
+                <audio id="moveSound">
+                    <source src="">
+                </audio>
+            </div>
+        </div>
+    </body>
+</html>
